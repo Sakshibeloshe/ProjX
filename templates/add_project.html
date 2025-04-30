@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Your Project</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .form-section { margin-bottom: 20px; }
+    .entry { margin-bottom: 10px; }
+    .entry input, .entry select { margin-right: 10px; }
+    .btn { padding: 5px 10px; cursor: pointer; }
+    .home-btn { position: absolute; top: 10px; right: 10px; }
+  </style>
+</head>
+<body>
+  <a href="{{ url_for('search_projects') }}" class="home-btn"><button>🏠 Home</button></a>
+
+  <h1>Create Your Project</h1>
+
+  <form action="/add_project" method="POST">
+    <div class="form-section">
+      <label>Project Name:</label>
+      <input type="text" name="project_name" required><br>
+
+      <label>Description:</label>
+      <textarea name="description" required></textarea><br>
+
+      <label>Keywords (comma-separated):</label>
+      <input type="text" name="keywords" required><br>
+
+      <label>Status:</label>
+      <select name="status" required>
+        <option value="Ongoing">Ongoing</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+
+    <!-- ROLES SECTION -->
+    <div class="form-section">
+      <h3>Roles</h3>
+      <div id="roles-container">
+        <div class="entry">
+          <input type="text" name="roles[]" placeholder="Role name" required>
+          <input type="text" name="role_requirements[]" placeholder="Requirements" required>
+          <select name="role_status[]">
+            <option value="Available">Available</option>
+            <option value="Filled">Filled</option>
+          </select>
+        </div>
+      </div>
+      <button type="button" class="btn" onclick="addRole()">+ Add Role</button>
+    </div>
+
+    <!-- MEMBERS SECTION -->
+    <div class="form-section">
+      <h3>Members</h3>
+      <p><em>Admins (Project Leads) will have special privileges.</em></p>
+      <div id="members-container">
+        <div class="entry">
+          <input type="text" name="member_usernames[]" placeholder="Username" required>
+          <input type="text" name="member_roles[]" placeholder="Assigned Role" required>
+          <label>Admin?</label>
+          <select name="is_admin[]">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+        </div>
+      </div>
+      <button type="button" class="btn" onclick="addMember()">+ Add Member</button>
+    </div>
+
+    <button type="submit">Submit Project</button>
+  </form>
+
+  <script>
+    function addRole() {
+      const container = document.getElementById('roles-container');
+      const entry = document.createElement('div');
+      entry.className = 'entry';
+      entry.innerHTML = `
+        <input type="text" name="roles[]" placeholder="Role name" required>
+        <input type="text" name="role_requirements[]" placeholder="Requirements" required>
+        <select name="role_status[]">
+          <option value="Available">Available</option>
+          <option value="Filled">Filled</option>
+        </select>
+      `;
+      container.appendChild(entry);
+    }
+
+    function addMember() {
+      const container = document.getElementById('members-container');
+      const entry = document.createElement('div');
+      entry.className = 'entry';
+      entry.innerHTML = `
+        <input type="text" name="member_usernames[]" placeholder="Username" required>
+        <input type="text" name="member_roles[]" placeholder="Assigned Role" required>
+        <label>Admin?</label>
+        <select name="is_admin[]">
+          <option value="false">No</option>
+          <option value="true">Yes</option>
+        </select>
+      `;
+      container.appendChild(entry);
+    }
+  </script>
+</body>
+</html>

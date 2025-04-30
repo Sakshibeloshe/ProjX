@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile Management</title>
+  <!--<link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}" />-->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <!--<style>
+    input[readonly] {
+      background-color: #f3f3f3;
+    }
+  </style>-->
+</head>
+<body>
+    <a href="{{url_for('search_projects')}}" class="home-btn"><button>🏠 Home</button></a>
+  <div class="container">
+    <h1>Profile Management</h1>
+
+    <div class="profile-section">
+      <div class="profile-image-upload">
+        <label for="profile-photo">
+          <div class="image-placeholder">
+            <span>Upload Photo</span>
+          </div>
+        </label>
+        <input type="file" id="profile-photo" accept="image/*" hidden>
+      </div>
+
+      <form class="profile-form" action="/update_profile" method="POST">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" value="{{ user.name }}" readonly required>
+          <button type="button" onclick="toggleEdit('name')">Edit</button>
+        </div>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="number" id="age" name="age" value="{{ user.age }}" readonly required>
+          <button type="button" onclick="toggleEdit('age')">Edit</button>
+        </div>
+        <div class="form-group">
+          <label for="department">Department</label>
+          <input type="text" id="department" name="department" value="{{ user.department }}" readonly required>
+          <button type="button" onclick="toggleEdit('department')">Edit</button>
+        </div>
+        <div class="form-group">
+          <label for="education">Education</label>
+          <input type="text" id="education" name="education" value="{{ user.education }}" readonly required>
+          <button type="button" onclick="toggleEdit('education')">Edit</button>
+        </div>
+        <div class="form-group">
+          <label for="email">Email ID</label>
+          <input type="email" id="email" name="email" value="{{ user.email }}" readonly required>
+          <button type="button" onclick="toggleEdit('email')">Edit</button>
+        </div>
+        <div class="form-group">
+          <label for="contact">Contact Number</label>
+          <input type="tel" id="contact" name="contact" value="{{ user.contact }}" readonly required>
+          <button type="button" onclick="toggleEdit('contact')">Edit</button>
+        </div>
+        <div class="form-group">
+          <label for="prn">PRN Number</label>
+          <input type="text" id="prn" name="prn" value="{{ user.prn }}" readonly required>
+          <button type="button" onclick="toggleEdit('prn')">Edit</button>
+        </div>
+
+        <button type="submit">Save Profile</button>
+      </form>
+    </div>
+  </div>
+  
+  <form action="{{ url_for('delete_profile') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete your profile? This action cannot be undone.');">
+    <button type="submit" class="btn btn-danger">❌ Delete Profile</button>
+  </form>
+  
+
+  <script>
+    function toggleEdit(fieldId) {
+      const field = document.getElementById(fieldId);
+      field.readOnly = !field.readOnly;
+      field.focus();
+    }
+  </script>
+</body>
+</html>

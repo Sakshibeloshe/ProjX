@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up | ProjX</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <!--<link rel="stylesheet" href="login.css" />-->
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <h2>Create Your ProjX Account</h2>
+
+      <form class="signup-form" action="/signup" method="POST">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" name="name" id="name" placeholder="Enter your full name" required />
+        </div>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="number" name="age" id="age" required />
+        </div>
+        <div class="form-group">
+          <label for="prn">PRN</label>
+          <input type="number" name="prn" id="prn" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" required />
+        </div>
+        <div class="form-group">
+          <label for="department">Department</label>
+          <input type="text" name="department" id="department" required />
+        </div>
+        <div class="form-group">
+          <label for="expertise">Coding Expertise (comma-separated)</label>
+          <input type="text" name="expertise" id="expertise" placeholder="e.g. Python, React, ML" />
+        </div>
+        <div class="form-group">
+          <label for="interests">Interests</label>
+          <input type="text" name="interests" id="interests" placeholder="e.g. AI, Web Dev" />
+        </div>
+        <div class="form-group">
+          <label for="about_me">About You</label>
+          <textarea name="about_me" id="about_me" rows="4" placeholder="Tell us about yourself..."></textarea>
+        </div>
+
+        <button type="submit">Sign Up</button>
+        <p class="redirect-text">
+          Already have an account?
+          <a href="/login">Back to Login</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

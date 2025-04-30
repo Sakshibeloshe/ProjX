@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ project.project_name }} - Project Details</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body { padding: 20px; font-family: Arial; }
+    .section { margin-bottom: 30px; }
+    table, th, td { border: 1px solid #ccc; border-collapse: collapse; padding: 8px; }
+    h2 { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <a href="{{ url_for('search_projects') }}">← Back to Projects</a>
+  <h1>{{ project.project_name }}</h1>
+
+  <div class="section">
+    <strong>Description:</strong>
+    <p>{{ project.description }}</p>
+
+    <strong>Keywords:</strong>
+    <p>{{ project.keywords }}</p>
+
+    <strong>Status:</strong>
+    <p>{{ project.status }}</p>
+
+    <strong>Created On:</strong>
+    <p>{{ project.created_at.strftime('%Y-%m-%d') }}</p>
+  </div>
+
+  <!-- Roles Section -->
+  <div class="section">
+    <h2>Roles</h2>
+    <table>
+      <tr>
+        <th>Role</th>
+        <th>Requirements</th>
+        <th>Status</th>
+      </tr>
+      {% for role in roles %}
+      <tr>
+        <td>{{ role.role_name }}</td>
+        <td>{{ role.requirements }}</td>
+        <td>{{ role.status }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <!-- Members Section -->
+  <div class="section">
+    <h2>Members</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Leader</th>
+      </tr>
+      {% for membership in memberships %}
+      <tr>
+        <td>{{ membership.user.name }}</td>
+        <td>{{ membership.user.username }}</td>
+        <td>{{ membership.role.role_name }}</td>
+        <td>{{ 'Yes' if membership.is_lead else 'No' }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <!-- Updates Section -->
+  <div class="section">
+    <h2>Project Updates</h2>
+    {% if updates %}
+    <ul>
+      {% for update in updates %}
+        <li><strong>{{ update.timestamp.strftime('%Y-%m-%d') }}:</strong> {{ update.update_text }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>No updates yet.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Project Search</title>
+  <!--<link rel="stylesheet" href="{{ url_for('static', filename='project-search.css') }}">-->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 20px;">
+        <a href="{{ url_for('profile') }}">
+          <button type="button">Profile</button>
+        </a>
+        <a href="{{ url_for('add_project') }}">
+          <button type="button">Add Project</button>
+        </a>
+      </div>
+      
+  <div class="container">
+    <h1>Search Projects</h1>
+
+    <form method="GET" action="{{ url_for('search_projects') }}">
+      <input type="text" name="name" placeholder="Search by project name" />
+      
+      <select name="status">
+        <option value="">--Select Status--</option>
+        {% for status in statuses %}
+          <option value="{{ status }}">{{ status }}</option>
+        {% endfor %}
+      </select>
+
+      <select name="keyword">
+        <option value="">-- Select Keyword --</option>
+        {% for kw in available_keywords %}
+          <option value="{{ kw.strip() }}">{{ kw.strip() }}</option>
+        {% endfor %}
+      </select>
+
+      <select name="role">
+        <option value="">-- Select Role --</option>
+        {% for role in roles %}
+          <option value="{{ role }}">{{ role }}</option>
+        {% endfor %}
+      </select>
+
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="results">
+      {% for project in projects %}
+        <div class="project-card">
+          <h2><a href="{{ url_for('view_project', project_id=project.project_id) }}">{{ project.project_name }}</a></h2>
+          <p>{{ project.project_info }}</p>
+          <p><strong>Status:</strong> {{ project.status }}</p>
+          <p><strong>Keywords:</strong> {{ project.keywords }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  
+</body>
+</html>
